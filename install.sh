@@ -3,29 +3,29 @@ set -e
 
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
-echo "🔧 Instalando dotfiles..."
+echo "🔧 Installing dotfiles..."
 
-# Instala zsh se não existir
+# install zsh if not installed
 if ! command -v zsh &>/dev/null; then
-  echo "📦 Instalando zsh..."
+  echo "📦 Installing zsh..."
   sudo apt-get update -q && sudo apt-get install -y zsh
 fi
 
-# Instala Oh My Zsh se não existir
+# install Oh My Zsh if not installed
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-  echo "📦 Instalando Oh My Zsh..."
+  echo "📦 Installing Oh My Zsh..."
   sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
-# Linka os dotfiles
-echo "🔗 Linkando arquivos..."
+# Link the dotfiles
+echo "🔗 Linking files..."
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.zsh_aliases" "$HOME/.zsh_aliases"
 
-# Muda shell padrão para zsh
+# Change default shell to zsh
 if [ "$SHELL" != "$(which zsh)" ]; then
-  echo "🐚 Mudando shell para zsh..."
+  echo "🐚 Changing shell to zsh..."
   sudo chsh -s "$(which zsh)" "$(whoami)" 2>/dev/null || true
 fi
 
-echo "✅ Dotfiles instalados!"
+echo "✅ Dotfiles installed!"
