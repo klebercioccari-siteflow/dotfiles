@@ -8,7 +8,7 @@ echo "🔧 Installing dotfiles..."
 # install zsh (no sudo, container runs as root)
 if ! command -v zsh &>/dev/null; then
   echo "📦 Installing zsh..."
-  apt-get update -q && apt-get install -y zsh
+  apk add --no-cache zsh curl
 fi
 
 # install Oh My Zsh
