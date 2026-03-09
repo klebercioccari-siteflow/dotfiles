@@ -40,4 +40,12 @@ echo "🔗 Linking files..."
 ln -sf "$DOTFILES_DIR/.zshrc" "$HOME/.zshrc"
 ln -sf "$DOTFILES_DIR/.zsh_aliases" "$HOME/.zsh_aliases"
 
+# Set zsh as default shell
+ZSH_PATH="$(which zsh)"
+if ! grep -q "$ZSH_PATH" /etc/shells; then
+  echo "$ZSH_PATH" >> /etc/shells
+fi
+sed -i "s|root:/bin/sh|root:$ZSH_PATH|g" /etc/passwd
+sed -i "s|root:/bin/ash|root:$ZSH_PATH|g" /etc/passwd
+
 echo "✅ Dotfiles installed!"
